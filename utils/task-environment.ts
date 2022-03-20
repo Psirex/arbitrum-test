@@ -1,5 +1,5 @@
 import { Bridge } from "arb-ts";
-import { ContractReceipt, ethers, providers, Wallet } from "ethers";
+import { ContractReceipt, providers, Wallet } from "ethers";
 import { loadEnvVariables } from "./env";
 import { logParams } from "./log";
 
@@ -11,7 +11,14 @@ interface LayersPair<L1, L2 = L1> {
 type LayersProviders = LayersPair<providers.JsonRpcProvider>;
 type LayersWallets = LayersPair<Wallet>;
 
+interface EnvVariables {
+  PRIVATE_KEY: string;
+  L1RPC: string;
+  L2RPC: string;
+  INBOX_ADDRESS: string;
+}
 export class TaskEnvironment {
+  public readonly variables: EnvVariables;
   public readonly bridge: Bridge;
   public readonly providers: LayersProviders;
   public readonly wallets: LayersWallets;
@@ -19,18 +26,21 @@ export class TaskEnvironment {
   private constructor(
     bridge: Bridge,
     providers: LayersProviders,
-    wallets: LayersWallets
+    wallets: LayersWallets,
+    variables: EnvVariables
   ) {
+    this.variables = variables;
     this.bridge = bridge;
     this.wallets = wallets;
     this.providers = providers;
   }
 
   static async init() {
-    const { PRIVATE_KEY, L1RPC, L2RPC } = loadEnvVariables([
+    const { PRIVATE_KEY, L1RPC, L2RPC, INBOX_ADDRESS } = loadEnvVariables([
       "L1RPC",
       "L2RPC",
       "PRIVATE_KEY",
+      "INBOX_ADDRESS",
     ]);
     const l1Provider = new providers.JsonRpcProvider(L1RPC);
     const l2Provider = new providers.JsonRpcProvider(L2RPC);
@@ -51,7 +61,8 @@ export class TaskEnvironment {
     return new TaskEnvironment(
       bridge,
       { l1: l1Provider, l2: l2Provider },
-      { l1: l1Wallet, l2: l2Wallet }
+      { l1: l1Wallet, l2: l2Wallet },
+      { PRIVATE_KEY, L1RPC, L2RPC, INBOX_ADDRESS }
     );
   }
 

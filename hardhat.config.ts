@@ -12,6 +12,8 @@ import "./tasks/transfer-erc20-tokens";
 import "./tasks/withdraw-erc20-tokens";
 import "./tasks/deploy-dummy-erc20-token";
 import "./tasks/deploy-custom-erc20-token";
+import "./tasks/deploy-custom-tokens-gateway";
+import "./tasks/transfer-tokens-custom-gateway";
 
 dotenv.config();
 
