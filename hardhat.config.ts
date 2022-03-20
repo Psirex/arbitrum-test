@@ -7,8 +7,10 @@ import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
 
-import "./tasks/deploy-dummy-erc20-token";
+import "./tasks/outbox-execute";
 import "./tasks/transfer-erc20-tokens";
+import "./tasks/withdraw-erc20-tokens";
+import "./tasks/deploy-dummy-erc20-token";
 
 dotenv.config();
 
