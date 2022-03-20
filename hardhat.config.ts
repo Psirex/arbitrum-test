@@ -8,6 +8,7 @@ import "hardhat-gas-reporter";
 import "solidity-coverage";
 
 import "./tasks/deploy-dummy-erc20-token";
+import "./tasks/transfer-erc20-tokens";
 
 dotenv.config();
 
