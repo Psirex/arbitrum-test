@@ -5,11 +5,11 @@ import {IERC20} from "./interfaces/IERC20.sol";
 
 contract DummyERC20Token is IERC20 {
     uint8 public immutable decimals;
-    address public immutable minter;
 
     bytes32 private immutable _name;
     bytes32 private immutable _symbol;
 
+    address public minter;
     uint256 public totalSupply;
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
@@ -72,6 +72,13 @@ contract DummyERC20Token is IERC20 {
 
     function burn(address account, uint256 amount) external {
         _burn(account, amount);
+    }
+
+    function setMinter(address newMinter) external {
+        if (msg.sender != minter) {
+            revert NotMinter();
+        }
+        minter = newMinter;
     }
 
     function _transfer(

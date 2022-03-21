@@ -7,13 +7,17 @@ import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
 
-import "./tasks/outbox-execute";
-import "./tasks/transfer-erc20-tokens";
-import "./tasks/withdraw-erc20-tokens";
-import "./tasks/deploy-dummy-erc20-token";
-import "./tasks/deploy-custom-erc20-token";
-import "./tasks/deploy-custom-tokens-gateway";
-import "./tasks/transfer-tokens-custom-gateway";
+const LOAD_TASKS = process.env.LOAD_TASKS !== "false";
+
+if (LOAD_TASKS) {
+  require("./tasks/outbox-execute");
+  require("./tasks/deposit-erc20-tokens");
+  require("./tasks/withdraw-erc20-tokens");
+  require("./tasks/deploy-dummy-erc20-token");
+  require("./tasks/deploy-custom-erc20-token");
+  require("./tasks/deploy-custom-tokens-gateway");
+  require("./tasks/transfer-tokens-custom-gateway");
+}
 
 dotenv.config();
 

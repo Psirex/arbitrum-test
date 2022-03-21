@@ -2,7 +2,7 @@ import { task } from "hardhat/config";
 import { OutgoingMessageState } from "arb-ts";
 import { TaskEnvironment } from "../utils/task-environment";
 
-task("outbox-execute")
+task("outbox-execute", "Executes transaction send from Arbitrum to Ethereum")
   .addPositionalParam("hash", "Hash of Arbitrum transaction to execute")
   .setAction(async ({ hash }) => {
     const env = await TaskEnvironment.init();

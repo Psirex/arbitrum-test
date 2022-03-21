@@ -3,7 +3,6 @@ import {
   DummyERC20Token__factory,
   L1TokensGateway__factory,
   L2TokensGateway__factory,
-  MintableERC20Token__factory,
 } from "../typechain";
 import { TaskEnvironment } from "../utils/task-environment";
 
@@ -20,7 +19,7 @@ task(
   console.log(`Dummy token is deployed to L1 at ${l1DummyToken.address}`);
 
   console.log("Deploying the dummy token to L2");
-  const l2MintableToken = await new MintableERC20Token__factory(
+  const l2MintableToken = await new DummyERC20Token__factory(
     env.wallets.l2
   ).deploy("Mintable L2 Token", "M2TKN", 2, 0);
   console.log(`Dummy token is deployed to L2 at ${l2MintableToken.address}`);

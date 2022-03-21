@@ -17,6 +17,10 @@ module.exports = {
   },
   rules: {
     camelcase: "off",
+    "node/no-missing-require": [
+      "error",
+      { tryExtensions: [".js", ".ts", ".json"] },
+    ],
     "node/no-missing-import": [
       "error",
       { tryExtensions: [".js", ".ts", ".json"] },

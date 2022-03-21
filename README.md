@@ -1,46 +1,44 @@
-# Advanced Sample Hardhat Project
+# Arbitrum Bridging Examples
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+This repo contains set of tasks to test tokens transfer through Arbitrum's Native Bridge.
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+## Project Setup
 
-Try running some of the following tasks:
+To run tasks from this repo run next commands:
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-npx hardhat help
-REPORT_GAS=true npx hardhat test
-npx hardhat coverage
-npx hardhat run scripts/deploy.ts
-TS_NODE_FILES=true npx ts-node scripts/deploy.ts
-npx eslint '**/*.{js,ts}'
-npx eslint '**/*.{js,ts}' --fix
-npx prettier '**/*.{json,sol,md}' --check
-npx prettier '**/*.{json,sol,md}' --write
-npx solhint 'contracts/**/*.sol'
-npx solhint 'contracts/**/*.sol' --fix
+```
+npm install
+npm run compile
 ```
 
-# Etherscan verification
+Create `.env` file in the root directory of this project and fill it with values from `.env.example` file.
 
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
+## Tasks Usage
 
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
+### `deploy-dummy-erc20-token`
 
-```shell
-hardhat run --network ropsten scripts/deploy.ts
-```
+Deploys `DummyERC20` contract. To see full list of arguments of the task use `npx hardhat deploy-dummy-erc20-token --help` command.
 
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
+### `deposit-erc20-tokens`
 
-```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
-```
+Transfers ERC20 tokens from Ethereum chain to the Arbitrum chain. To see full list of arguments of the task use `npx hardhat deposit-erc20-tokens --help` command.
 
-# Performance optimizations
+### `withdraw-erc20-tokens`
 
-For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
+Withdraws ERC20 tokens from Arbitrum chain back to the Ethereum chain. To see full list of arguments of the task use `npx hardhat withdraw-erc20-tokens --help` command.
+
+### `deploy-custom-erc20-token`
+
+Deploys pair of custom tokens on Ethereum and Arbitrum chains, and registers deployed tokens in Arbitrum's GatewayRouter.
+
+### `outbox-execute`
+
+Executes transaction sent from Arbitrum to Ethereum. To see full list of arguments of the task use `npx hardhat outbox-execute --help` command.
+
+### `deploy-custom-tokens-gateway`
+
+Deploys custom gateways on Ethereum and Arbitrum chains to transfer tokens in both directions: L1 -> L2 and L2 -> L1. To see full list of arguments of the task use `npx hardhat deploy-custom-tokens-gateway --help` command.
+
+### `transfer-tokens-custom-gateway`
+
+Transfer tokens via custom gateway deployed via `deploy-custom-tokens-gateway`. To see full list of arguments of the task use `npx hardhat transfer-tokens-custom-gateway --help` command.
